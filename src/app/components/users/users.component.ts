@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/User';
 
 @Component({
@@ -7,12 +7,17 @@ import { User } from '../../models/User';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  user: User = {
+    firstName: '',
+    lastName: '',
+    email: ''
+  };
   users: User[];
-  showExtended: boolean = true;
+  showExtended: boolean = false;
   loaded: boolean = false;
-  enableAdd: boolean = true;
-  currentClasses: {};
-  currentStyles: {};
+  enableAdd: boolean = false;
+  showUserForm: boolean = false;
+  @ViewChild("userForm") form: any;
 
 
   constructor() {
@@ -20,70 +25,50 @@ export class UsersComponent implements OnInit {
       {
         firstName: "John",
         lastName: "Doe",
-        age: 30,
-        address: {
-          street: '50 Main st',
-          city: 'Boston',
-          state: 'Ma'
-        },
-        image: 'https://picsum.photos/id/1012/300',
+        email: "john.doe@gmail.com",
         isActive: true,
-        balance: 100,
-        registered: new Date("01/02/2018 08:30:00")
+        registered: new Date("01/02/2018 08:30:00"),
+        hide: true
       },
       {
         firstName: "Kevin",
         lastName: "Johnson",
-        age: 32,
-        address: {
-          street: '51 Main st',
-          city: 'Boston',
-          state: 'Ma'
-        },
-        image: 'https://picsum.photos/id/1001/300',
+        email: "kevin.johnson@gmail.com",
         isActive: false,
-        balance: 200,
-        registered: new Date("02/03/2018 09:30:00")
+        registered: new Date("02/03/2018 09:30:00"),
+        hide: true
       },
       {
         firstName: "Amy",
         lastName: "Williams",
-        age: 49,
-        address: {
-          street: '52 Main st',
-          city: 'Boston',
-          state: 'Ma'
-        },
-        image: 'https://picsum.photos/id/1013/300',
+        email: "amy.williams@gmail.com",
         isActive: true,
-        balance: 300,
-        registered: new Date("03/04/2019 10:30:00")
+        registered: new Date("03/04/2019 10:30:00"),
+        hide: true
       }
     ];
 
-    this.currentClasses = {};
-    this.currentStyles = {};
   }
 
   ngOnInit() {
     setTimeout(() => {
       this.loaded = true;
     }, 2000)
-
-    this.setCurrentClasses();
-    this.setCurrentStyles();
   }
 
-  setCurrentClasses() {
-    this.currentClasses = {
-      "btn-success": this.enableAdd
-    }
+  toggleHide(user: User) {
+    user.hide = !user.hide;
   }
 
-  setCurrentStyles() {
-    this.currentStyles = {
-      "padding-top": this.showExtended ? '0' : '40px',
-      "font-size": this.showExtended ? '' : '40px'
-    }
+  onSubmit({ value }: { value: User }) {
+
+    value.isActive = true;
+    value.registered = new Date();
+    value.hide = true;
+
+    this.users.unshift(value);
+    this.form.reset();
+
   }
+
 }
