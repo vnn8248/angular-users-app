@@ -11,6 +11,9 @@ export class UsersComponent implements OnInit {
   showExtended: boolean = true;
   loaded: boolean = false;
   enableAdd: boolean = true;
+  currentClasses: {};
+  currentStyles: {};
+
 
   constructor() {
     this.users = [
@@ -23,7 +26,8 @@ export class UsersComponent implements OnInit {
           city: 'Boston',
           state: 'Ma'
         },
-        image: 'https://picsum.photos/id/1012/300'
+        image: 'https://picsum.photos/id/1012/300',
+        isActive: true
       },
       {
         firstName: "Kevin",
@@ -34,7 +38,8 @@ export class UsersComponent implements OnInit {
           city: 'Boston',
           state: 'Ma'
         },
-        image: 'https://picsum.photos/id/1001/300'
+        image: 'https://picsum.photos/id/1001/300',
+        isActive: false
       },
       {
         firstName: "Amy",
@@ -45,15 +50,34 @@ export class UsersComponent implements OnInit {
           city: 'Boston',
           state: 'Ma'
         },
-        image: 'https://picsum.photos/id/1013/300'
+        image: 'https://picsum.photos/id/1013/300',
+        isActive: true
       }
     ];
+
+    this.currentClasses = {};
+    this.currentStyles = {};
   }
 
   ngOnInit() {
     setTimeout(() => {
       this.loaded = true;
     }, 2000)
+
+    this.setCurrentClasses();
+    this.setCurrentStyles();
   }
 
+  setCurrentClasses() {
+    this.currentClasses = {
+      "btn-success": this.enableAdd
+    }
+  }
+
+  setCurrentStyles() {
+    this.currentStyles = {
+      "padding-top": this.showExtended ? '0' : '40px',
+      "font-size": this.showExtended ? '' : '40px'
+    }
+  }
 }
