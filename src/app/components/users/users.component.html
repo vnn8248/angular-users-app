@@ -65,6 +65,7 @@
     <ul class="list-group" *ngIf="!user.hide">
       <li class="list-group-item">Email: {{ user.email }}</li>
       <li class="list-group-item">Registered: {{ user.registered | date:"longDate" }}</li>
+      <li class="list-group-item">Status: {{user.isActive ? "Active" : "Inactive"}}</li>
     </ul>
 
   </li>

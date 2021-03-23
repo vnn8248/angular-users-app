@@ -19,7 +19,7 @@ export class PostsComponent implements OnInit {
   constructor(private postService: PostService) { };
 
   ngOnInit(): void {
-    this.postService.getPost().subscribe(posts => {
+    this.postService.getPosts().subscribe(posts => {
       this.posts = posts;
     });
   };
@@ -47,6 +47,18 @@ export class PostsComponent implements OnInit {
         }
       }
     });
+  };
+
+  removePost(post: Post) {
+    if (confirm("Are you sure?")) {
+      this.postService.removePost(post.id).subscribe(() => {
+        this.posts.forEach((curr, i) => {
+          if (post.id === curr.id) {
+            this.posts.splice(i, 1);
+          }
+        });
+      });
+    }
   };
 
 }

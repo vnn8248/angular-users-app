@@ -1,0 +1,7 @@
+<div class="card">
+  <div *ngIf="post" class="card-body">
+    <h3 class="card-title">{{ post.title }}</h3>
+    <p class="card-text">{{ post.body }}</p>
+    <button class="btn btn-warning mt-3" routerLink="/posts">Back to posts</button>
+  </div>
+</div>
